@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cowrie Honeypot Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  <meta charset="UTF-8">
+</head>
+<body>
+  <h1>🐍 Cowrie Honeypot Dashboard</h1>
+
+  <section>
+    <h2>🌐 Top Attacker IPs</h2>
+    <ul>
+      {% for ip, count in ip_counts.most_common(10) %}
+        <li>{{ ip }} — {{ count }} attempts</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section>
+    <h2>💻 Top Commands Executed</h2>
+    <ul>
+      {% for cmd, count in cmd_counts.most_common(10) %}
+        <li>{{ cmd }} — {{ count }} times</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section>
+    <h2>📍 Attacker Map</h2>
+    <iframe src="/static/map.html" width="100%" height="400px"></iframe>
+  </section>
+
+  <section>
+    <h2>📄 Latest Snort Alerts</h2>
+    <pre>
+{% for alert in alerts %}
+{{ alert }}
+
+{% endfor %}
+    </pre>
+  </section>
+
+  <section>
+    <h2>🧾 Report & VirusTotal</h2>
+    <a href="/report" class="button">📥 Download PDF Report</a>
+    <form action="/vt" method="post">
+      <input type="text" name="url" placeholder="Paste suspicious URL..." required>
+      <button type="submit">Check with VirusTotal</button>
+    </form>
+  </section>
+</body>
+</html>

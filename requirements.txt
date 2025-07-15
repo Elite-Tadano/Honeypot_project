@@ -1,0 +1,6 @@
+flask
+folium
+geoip2
+weasyprint
+jinja2
+requests
